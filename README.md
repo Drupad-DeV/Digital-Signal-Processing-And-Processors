@@ -159,4 +159,220 @@ c. Plot its Magnitude and Phase spectrum using Parseval’s relation.
 2. Consider 𝑥[𝑛] = cos(pi/3 * n) + sin (pi/4 * n)
 . Determine its DFS coefficients. 
 (2 more questions will be given on the spot for evaluation) 
+<pre>
+%Signal Generation
+n=0:2:100;
+x=ones(1,51);
+stem(n,x)
+xlabel("Time")
+ylabel("Amplitude")
+title("Signal Generation")
+%DFS coefficient
+sum1=0;
+N=2;
+for k=0:N-1
+  for n=0:N-1
+       sum1=sum1+(1/N*x(n+1)*exp(-1i*k*pi*n));
+  end
+    D(k+1)=sum1;
+    sum1=0;
+end
+disp(D)
+%Parseval's Relation
+c=abs(D(k));
+figure
+stem(k,c)
+xlabel("K")
+ylabel("Dk")
+title("Parseval's Relation")
+</pre>
 
+2. Consider 𝑥[𝑛] = cos (pi/3 * n) + sin (pi/4 * n)
+ Determine its DFS coefficients. 
+<pre>
+%DFS Coefficients for Cos(pi/3*n)+Sin(pi/4*n)
+x=0;
+N=24;
+for k=0:N-1
+  for n=0:N-1
+       x=x+(1/N*(sin(n*pi/4)+cos(n*pi/3)*exp(-1i*k*pi*n/12)));
+  end
+    D(k+1)=x;
+    x=0;
+end
+disp(D)
+stem(D)
+</pre>
+
+## Labsheet 4 DFT
+1. Sketch the signal 𝒙[𝒏] = 𝒔𝒊𝒏ቀ𝟐 ∗ 𝒑𝒊 ∗
+[𝟎:𝟏𝟗] / 
+𝟐𝟎 
+2. Find the DFT of x[n]. 
+3. Shift x[n] by circularly by 2 units and name it as 𝒙𝟏
+[𝒏]. Plot 𝒙𝟏
+[𝒏]. 
+4. Find DFT of 𝒙𝟏
+[𝒏]. Correlate the relationship between X(k) and 𝑿𝟏(𝒌)
+
+<pre>
+N = 20;
+n = 0:19;
+w = 2*pi/N;
+D = zeros(1,20);
+D1 = [];
+x = sin(2*pi*n/N);
+subplot(3,2,1)
+stem(n,x)
+xlabel('time')
+ylabel('Amplitude')
+title('sin(2*pi*n/N)')
+for k = n
+ D(k+1) = sum(x.*exp(-1i*k*2*pi*n/N));
+end
+subplot(3,2,2)
+stem(n,abs(D))
+xlabel('samples')
+ylabel('Amplitude')
+title('DFT of x[n]')
+x1 = x(mod(n-2,N)+1);
+subplot(3,2,3)
+stem(n,x1)
+xlabel('time')
+ylabel('Amplitude')
+title('x1[n]')
+for k = n
+ D1(k+1) = sum(x1.*exp(-1i*k*2*pi*n/N));
+end
+subplot(3,2,4)
+stem(n,abs(D1))
+xlabel('samples')
+ylabel('Amplitude')
+title('DFT of x1[n]')
+subplot(3,2,5)
+stem(n,angle(D))
+xlabel("time")
+ylabel("Amplitude")
+title("Phase Angle of x[k]")
+subplot(3,2,6)
+stem(n,angle(D1))
+xlabel("time")
+ylabel("Amplitude")
+title("Phase Angle of x1[k]")
+</pre>
+2. The DFT of the 5-point signal x[n] is given by 𝑿[𝒌] = {𝟓, 𝟔, 𝟏, 𝟐, 𝟗}. Another signal is defined by 
+𝒙𝟏
+[𝒏] = 𝑾𝟓
+^𝟐𝒏𝒙[𝒏]; 𝟎 ≤ 𝒏 ≤ 𝟒. Determine X1[k] using suitable property. Plot x[n], Real part of 
+X[k], Imaginary part of X[k] in one figure. Plot x1[n], Real part of X1[k], Imaginary part of X1[k] in 
+another figure. 
+
+<pre>
+n = 0:4;
+X = [5, 6, 1, 2, 9];
+N = 5;
+X1 = X(mod(n-2,N)+1);
+x = [];
+x1 = [];
+for k = n
+   x(k+1) = sum(X.*exp(1i*k*2*pi*n/N))*1/N;
+end
+for k = n
+   x1(k+1) = sum(X1.*exp(1i*k*2*pi*n/N))*1/N;
+end
+figure(1)
+subplot(3,1,1)
+stem(n, abs(X), 'r');
+xlabel("n")
+ylabel("values")
+title("Magnitude of X")
+subplot(3,1,2)
+stem(n, angle(X), 'g');
+xlabel("n")
+ylabel("values")
+title("Phase of X")
+subplot(3,1,3)
+stem(n, abs(x), 'b');
+xlabel("n")
+ 
+ylabel("values")
+title("Magnitude of x")
+figure(2)
+subplot(3,1,1)
+stem(n, abs(X1), 'r');
+xlabel("n")
+ylabel("values")
+title("Magnitude of X1")
+subplot(3,1,2)
+stem(n, angle(X1), 'g');
+xlabel("n")
+ylabel("values")
+title("Phase of X1")
+subplot(3,1,3)
+stem(n, abs(x1), 'b');
+xlabel("n")
+ylabel("values")
+title("Magnitude of x1")
+figure (3)
+y1 = x.*exp(-1i*4*pi*n/N);
+figure(3);
+subplot(2,1,1);
+stem(n, abs(y1));
+title('Magnitude of y1');
+xlabel('n');
+ylabel('|y1|');
+subplot(2,1,2);
+stem(n, angle(y1));
+title('Phase of y1');
+xlabel('n');
+ylabel('∠y1');
+</pre>
+
+3. Let x[n] be the finite sequence and its DFT is 𝑿[𝒌] = {𝟎, 𝟏 + 𝒋, 𝟏, 𝟏 − 𝒋}.Using the properties, find 
+DFT of the following sequences. 
+a. 𝒙𝟏
+[𝒏] = 𝒆
+𝒋𝝅
+𝟐
+𝒏𝒙[𝒏]
+b. 𝒙𝟐
+[𝒏] = 𝒄𝒐𝒔(𝒏𝝅
+𝟐
+)𝒙[𝒏]
+c. 𝒙𝟑
+[𝒏] = 𝒙(𝒏 − 𝟏)
+<pre>
+n = 0:3;
+X = [0,1+1i,1,1-1i];
+N = 4;
+for k = n
+    x(k+1) = sum(X.*exp(1i*k*2*pi*n/N))*1/N;
+end
+
+
+X1 = X(mod(n-1,N)+1);
+for k = n
+ x1(k+1) = sum(X1.*exp(1i*k*2*pi*n/N))*1/N;
+end
+
+
+X2 = X(mod(n+1,N)+1);
+for k = n
+ x2(k+1) = sum(X2.*exp(1i*k*2*pi*n/N))*1/N;
+end
+
+
+X3 = X.*exp(-1i*n*pi*1/N);
+for k = n
+ x3(k+1) = sum(X3.*exp(1i*k*2*pi*n/N))*1/N;
+end
+
+
+x1_n = x.*exp(1i*pi*n/2);
+x2_n = x.*cos(n*pi/2);
+x3_n = x(mod(n-1,4)+1);
+abs(X)
+abs(X1)
+abs(X2)
+abs(X3)
+</pre>  
