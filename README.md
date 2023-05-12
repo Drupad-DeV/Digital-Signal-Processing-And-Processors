@@ -151,7 +151,7 @@ ylabel('Amplitude');
 
 
 
-##  Labshet 3: DFT Coefficients
+##  Labshet 3: DFS Coefficients
 Consider a Sequence 𝑥[𝑛] = ∑ 𝛿(𝑛 − 2𝑘)
 a. Sketch x[n] for 0 ≤ 𝑛 ≤ 100
 b. Find the DFS coefficients. 
