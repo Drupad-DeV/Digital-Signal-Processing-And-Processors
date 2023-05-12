@@ -146,3 +146,17 @@ title('Spectrum');
 xlabel('Frequency (Hz)');
 ylabel('Amplitude');
 </pre>
+
+
+
+
+
+##  Labshet 3: DFT Coefficients
+Consider a Sequence 𝑥[𝑛] = ∑ 𝛿(𝑛 − 2𝑘)
+a. Sketch x[n] for 0 ≤ 𝑛 ≤ 100
+b. Find the DFS coefficients. 
+c. Plot its Magnitude and Phase spectrum using Parseval’s relation. 
+2. Consider 𝑥[𝑛] = cos(pi/3 * n) + sin (pi/4 * n)
+. Determine its DFS coefficients. 
+(2 more questions will be given on the spot for evaluation) 
+
