@@ -376,3 +376,5 @@ abs(X1)
 abs(X2)
 abs(X3)
 </pre>  
+
+![image](https://github.com/Drupad-DeV/signal/assets/100958162/b110d066-9052-4700-bb48-13394829b003)
