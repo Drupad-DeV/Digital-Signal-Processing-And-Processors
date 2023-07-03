@@ -1,4 +1,4 @@
-# signal
+# Digital Signal Processing And Processors 
 ## labsheet 5 
 ## Overlap Add:
 Determine the output of an LTI system with impulse response h[n]={1,-1,1,2} for the input 
@@ -377,4 +377,3 @@ abs(X2)
 abs(X3)
 </pre>  
 
-![image](https://github.com/Drupad-DeV/signal/assets/100958162/b110d066-9052-4700-bb48-13394829b003)
